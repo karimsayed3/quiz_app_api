@@ -4,8 +4,7 @@
         "PORT":3000,
         "USER":"abokhadiga6@gmail.com",
         "PASS":"mwrlpngtlbcadnam",
-        "SERVICE":"gmail",
-        "BASE_URL":""
+        "SERVICE":"gmail"
     },
     "watch":["src"],
     "ext": "ts,json",
