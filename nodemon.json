@@ -1,11 +1,4 @@
 {
-    "env":{
-        "CONNECTION_STRING":"mongodb+srv://karim:lLJxLFTRhKlOUVRX@cluster0.5dwrgrb.mongodb.net/?retryWrites=true&w=majority",
-        "PORT":3000,
-        "USER":"abokhadiga6@gmail.com",
-        "PASS":"mwrlpngtlbcadnam",
-        "SERVICE":"gmail"
-    },
     "watch":["src"],
     "ext": "ts,json",
     "exec": "ts-node ./src/app.ts"

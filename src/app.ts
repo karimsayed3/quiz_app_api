@@ -13,7 +13,7 @@ import { ReturnResponse } from "./utils/interfaces";
 
 const app = express();
 
-const connectionString =  process.env.CONNECTION_STRING || "";
+const connectionString =  "mongodb+srv://karim:lLJxLFTRhKlOUVRX@cluster0.5dwrgrb.mongodb.net/?retryWrites=true&w=majority";
 
 app.use(express.json());
 
@@ -75,7 +75,7 @@ mongoose.connect(connectionString, (err) => {
     return;
   }
 
-  app.listen(process.env.PORT, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log("Server Connected");
   });
 });
