@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "tsc --noEmitOnError",
-    "start": "node app.ts",
+    "start": "node ./src/app.ts",
     "start:ts": "ts-node ./src/app.ts",
     "start:dev": "nodemon"
   },
