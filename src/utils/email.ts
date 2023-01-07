@@ -8,15 +8,15 @@ const sendEmail = async (
 ): Promise<any> => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: process.env.SERVICE,
       auth: {
-        user: "abokhadiga6@gmail.com",
-        pass: "mwrlpngtlbcadnam",
+        user: process.env.USER,
+        pass: process.env.PASS,
       },
     });
 
     const emailSent = await transporter.sendMail({
-      from: "abokhadiga6@gmail.com",
+      from: process.env.USER,
       to: email,
       subject: subject,
       text: text,
