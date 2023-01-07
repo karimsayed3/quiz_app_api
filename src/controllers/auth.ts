@@ -108,7 +108,7 @@ const activateUser: RequestHandler = async (req, res, next) => {
       expiresIn: "5m",
     });
 
-    const message = `${process.env.BASE_URL}user/activate/${emailToken}`;
+    const message = `${""}user/activate/${emailToken}`;
     sendEmail(user.email, "Verify Email", message);
     user.isDeactivated = true;
     res.send("An Email has been sent to your account please verify!");
