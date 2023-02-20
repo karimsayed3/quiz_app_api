@@ -69,6 +69,8 @@ app.use(
   }
 );
 
+mongoose.set('strictQuery', true);
+
 mongoose.connect(connectionString, (err) => {
   if (err) {
     console.log(err);
