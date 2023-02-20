@@ -1,6 +1,6 @@
 {
     "env":{
-        "CONNECTION_STRING":"mongodb+srv://karim:lLJxLFTRhKlOUVRX@cluster0.5dwrgrb.mongodb.net/?retryWrites=true&w=majority",
+        "CONNECTION_STRING":"mongodb+srv://karim:jdtYrFpB441ViiE8@cluster0.5dwrgrb.mongodb.net/?retryWrites=true&w=majority",
         "PORT":3000,
         "USER":"abokhadiga6@gmail.com",
         "PASS":"mwrlpngtlbcadnam",
