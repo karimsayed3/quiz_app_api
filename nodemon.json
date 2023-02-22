@@ -5,7 +5,7 @@
         "USER":"abokhadiga6@gmail.com",
         "PASS":"mwrlpngtlbcadnam",
         "SERVICE":"gmail",
-        "BASE_URL":""
+        "BASE_URL":"https://quiz-app-api-z4d2.onrender.com"
     },
     "watch":["src"],
     "ext": "ts,json",
