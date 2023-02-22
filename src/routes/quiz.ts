@@ -27,18 +27,7 @@ router.post(
       .not()
       .isEmpty()
       .isLength({ min: 10 })
-      .withMessage("Please enter a valid name, minimum 10 character long")
-      .custom((name) => {
-        return isValidQuizName(name)
-          .then((status: Boolean) => {
-            if (!status) {
-              return Promise.reject("Plaase enter an unique quiz name.");
-            }
-          })
-          .catch((err) => {
-            return Promise.reject(err);
-          });
-      }),
+      .withMessage("Please enter a valid name, minimum 10 character long"),
     body("questions_list").custom((questions_list, { req }) => {
       return isValidQuiz(questions_list, req.body["answers"])
         .then((status: Boolean) => {
