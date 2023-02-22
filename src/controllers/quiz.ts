@@ -208,6 +208,13 @@ const isValidQuiz = async (
   return flag;
 };
 
+const isValidQuizName = async (name: String) => {
+  const quiz = await Quiz.findOne({ name });
+  if (!quiz) {
+    return true;
+  }
+  return false;
+};
 
 export {
   createQuiz,
@@ -216,4 +223,5 @@ export {
   deleteQuiz,
   publishQuiz,
   isValidQuiz,
+  isValidQuizName,
 };
