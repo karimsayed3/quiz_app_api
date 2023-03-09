@@ -6,7 +6,6 @@ const quizSchema = new schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     questions_list: [
       {
