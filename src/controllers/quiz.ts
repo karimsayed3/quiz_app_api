@@ -83,12 +83,6 @@ const updateQuiz: RequestHandler = async (req, res, next) => {
       throw err;
     }
     if (quiz.name != req.body.name) {
-      let status = await isValidQuizName(req.body.name);
-      if (!status) {
-        const err = new ProjectError("Please enter an unique quiz name.");
-        err.statusCode = 422;
-        throw err;
-      }
       quiz.name = req.body.name;
     }
     quiz.questions_list = req.body.questions_list;
@@ -208,13 +202,7 @@ const isValidQuiz = async (
   return flag;
 };
 
-const isValidQuizName = async (name: String) => {
-  const quiz = await Quiz.findOne({ name });
-  if (!quiz) {
-    return true;
-  }
-  return false;
-};
+
 
 export {
   createQuiz,
@@ -222,6 +210,5 @@ export {
   updateQuiz,
   deleteQuiz,
   publishQuiz,
-  isValidQuiz,
-  isValidQuizName,
+  isValidQuiz
 };

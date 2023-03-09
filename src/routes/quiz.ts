@@ -9,8 +9,7 @@ import {
   updateQuiz,
   deleteQuiz,
   publishQuiz,
-  isValidQuiz,
-  isValidQuizName,
+  isValidQuiz
 } from "../controllers/quiz";
 
 
@@ -52,12 +51,6 @@ router.put(
   "/",
   isAuthenticated,
   [
-    body("name")
-      .trim()
-      .not()
-      .isEmpty()
-      .isLength({ min: 10 })
-      .withMessage("Please enter a valid name, minimum 10 character long"),
     body("questions_list").custom((questions_list, { req }) => {
       return isValidQuiz(questions_list, req.body["answers"])
         .then((status: Boolean) => {
