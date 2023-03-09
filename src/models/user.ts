@@ -17,10 +17,10 @@ const userSchema = new schema(
       type: String,
       required: true,
     },
-    // type: {
-    //   type: String,
-    //   required: true,
-    // },
+    type: {
+      type: String,
+      required: true,
+    },
     isDeactivated: {
       type: Boolean,
       default: false,

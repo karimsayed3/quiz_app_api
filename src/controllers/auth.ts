@@ -18,9 +18,10 @@ const registerUser: RequestHandler = async (req, res, next) => {
 
     const email = req.body.email;
     const name = req.body.name;
+    const type = req.body.type;
     let password = await bcrypt.hash(req.body.password, 12);
 
-    const user = new User({ email, name, password });
+    const user = new User({ email, name, password,type });
     const result = await user.save();
     if (!result) {
       resp = { status: "error", message: "No result found", data: {} };
