@@ -16,7 +16,7 @@ const getReport: RequestHandler = async (req, res, next) => {
         throw err;
       }
     } else {
-      report = await Report.find({ userId: req.userId });
+      report = await Report.find({ createdBy: req.body.createdBy });
     }
 
     if (!report) {

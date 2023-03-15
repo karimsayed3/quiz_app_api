@@ -18,6 +18,21 @@ const reportSchema = new schema(
     total: {
       type: Number,
       required: true,
+    }, 
+    quizName: {
+      type: String,
+      required: true,
+    }, createdBy: {
+      type: String,
+      required: true,
+    },
+    studentName: {
+      type: String,
+      required: true,
+    },
+    teacherName: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
