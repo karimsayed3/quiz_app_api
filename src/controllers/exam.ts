@@ -7,6 +7,7 @@ import ProjectError from "../helper/error";
 import { ReturnResponse } from "../utils/interfaces";
 import { Mongoose } from "mongoose";
 import { validationResult } from "express-validator";
+import User from "../models/user";
 
 const startExam: RequestHandler = async (req, res, next) => {
   try {
@@ -45,7 +46,17 @@ const submitExam: RequestHandler = async (req, res, next) => {
     const attempted_question = req.body.attempted_question;
 
     const quiz = await Quiz.findById(quizId, { answers: 1 });
-    const answers = quiz.answers;
+    const quiz2 = await Quiz.findById(quizId);
+    const user = await User.findById(req.userId);
+    const teacher = await User.findById(quiz2!.created_by);
+
+    const teacherName = teacher!.name;
+
+    const quizName = quiz2!.name;
+    const createdBy = quiz2!.created_by;
+    const studentName = user!.name;
+
+    const answers = quiz!.answers;
 
     const userId = req.userId;
     const allQuestions = Object.keys(answers);
@@ -63,7 +74,7 @@ const submitExam: RequestHandler = async (req, res, next) => {
       }
     }
 
-    const report = new Report({ userId, quizId, score, total });
+    const report = new Report({ userId, quizId, score, total ,quizName,createdBy,studentName,teacherName});
     const data = await report.save();
     const resp: ReturnResponse = {
       status: "success",
@@ -85,7 +96,7 @@ const doesQuizExist = async (quizId:Mongoose["Types"]["ObjectId"])=>{
 
 const isValidAttempt = async (attempted_question:{},quizId:Mongoose["Types"]["ObjectId"])=>{
   const quiz= await Quiz.findById(quizId);
-  const answers=quiz.answers;
+  const answers=quiz!.answers;
   const questions=Object.keys(answers);
   const attemptQ=Object.keys(attempted_question);
   if(attemptQ.length!=questions.length)
