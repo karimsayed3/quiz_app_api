@@ -10,13 +10,13 @@ const getReport: RequestHandler = async (req, res, next) => {
       const reportId = req.params.reportId;
       report = await Report.findById(req.params.reportId);
 
-      if (report.userId.toString() !== req.userId) {
+      if (report!.userId.toString() !== req.userId) {
         const err = new ProjectError("You are not allowed");
         err.statusCode = 405;
         throw err;
       }
     } else {
-      report = await Report.find({ createdBy: req.body.createdBy });
+      report = await Report.find({createdBy: req.body.createdBy});
     }
 
     if (!report) {
