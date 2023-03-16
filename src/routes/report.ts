@@ -7,5 +7,5 @@ const router = express.Router();
 
 //GET /report/:reportId
 router.get("/:reportId?", isAuthenticated, getReport);
-router.get("/", isAuthenticated, getReport);
+router.post("/teacher", isAuthenticated, getReport);
 export default router;
