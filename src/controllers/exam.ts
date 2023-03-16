@@ -18,17 +18,6 @@ const startExam: RequestHandler = async (req, res, next) => {
       is_published: 1,
     });
 
-    
-    const kk = Report.find({ userId: req.userId });
-    
-    if (!kk) {
-
-    }
-    else {
-      const err = new ProjectError("you have tested yourself before!");
-      err.statusCode = 401;
-      throw err;
-    }
 
     if (!quiz) {
       const err = new ProjectError("No quiz found!");
@@ -41,12 +30,14 @@ const startExam: RequestHandler = async (req, res, next) => {
       err.statusCode = 405;
       throw err;
     }
+
     const resp: ReturnResponse = {
       status: "success",
       message: "Quiz",
       data: quiz,
     };
     res.status(200).send(resp);
+   
   } catch (error) {
     next(error);
   }
@@ -85,6 +76,29 @@ const submitExam: RequestHandler = async (req, res, next) => {
         score = score + 1;
       }
     }
+
+
+
+    let kk = await Report.find({quizId: quizId,userId : req.userId});
+   
+ 
+     if (kk.length === 0) {
+      const report = new Report({ userId, quizId, score, total, quizName, createdBy, studentName, teacherName });
+      const data = await report.save();
+      const resp: ReturnResponse = {
+        status: "success",
+        message: "Quiz submitted",
+        data: { total, score, ReportId: data._id },
+      };
+      res.status(200).send(resp);
+   
+     }
+     else {
+       const err = new ProjectError("you have tested yourself before!");
+       err.statusCode = 401;
+       throw err;
+     }
+ 
 
 
   } catch (error) {
