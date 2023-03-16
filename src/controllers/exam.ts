@@ -26,7 +26,7 @@ const startExam: RequestHandler = async (req, res, next) => {
     }
     else {
       const err = new ProjectError("you have tested yourself before!");
-      err.statusCode = 404;
+      err.statusCode = 401;
       throw err;
     }
 
@@ -84,25 +84,6 @@ const submitExam: RequestHandler = async (req, res, next) => {
       ) {
         score = score + 1;
       }
-    }
-
-
-    const kk = Report.find({ userId: req.userId });
-
-    if (!kk) {
-      const report = new Report({ userId, quizId, score, total, quizName, createdBy, studentName, teacherName });
-      const data = await report.save();
-      const resp: ReturnResponse = {
-        status: "success",
-        message: "Quiz submitted",
-        data: { total, score, ReportId: data._id },
-      };
-      res.status(200).send(resp);
-    }
-    else {
-      const err = new ProjectError("you have tested yourself before!");
-      err.statusCode = 404;
-      throw err;
     }
 
 
