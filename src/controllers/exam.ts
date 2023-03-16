@@ -18,6 +18,18 @@ const startExam: RequestHandler = async (req, res, next) => {
       is_published: 1,
     });
 
+    
+    const kk = Report.find({ userId: req.userId });
+    
+    if (!kk) {
+
+    }
+    else {
+      const err = new ProjectError("you have tested yourself before!");
+      err.statusCode = 404;
+      throw err;
+    }
+
     if (!quiz) {
       const err = new ProjectError("No quiz found!");
       err.statusCode = 404;
@@ -74,44 +86,56 @@ const submitExam: RequestHandler = async (req, res, next) => {
       }
     }
 
-    const report = new Report({ userId, quizId, score, total ,quizName,createdBy,studentName,teacherName});
-    const data = await report.save();
-    const resp: ReturnResponse = {
-      status: "success",
-      message: "Quiz submitted",
-      data: { total, score, ReportId: data._id },
-    };
-    res.status(200).send(resp);
+
+    const kk = Report.find({ userId: req.userId });
+
+    if (!kk) {
+      const report = new Report({ userId, quizId, score, total, quizName, createdBy, studentName, teacherName });
+      const data = await report.save();
+      const resp: ReturnResponse = {
+        status: "success",
+        message: "Quiz submitted",
+        data: { total, score, ReportId: data._id },
+      };
+      res.status(200).send(resp);
+    }
+    else {
+      const err = new ProjectError("you have tested yourself before!");
+      err.statusCode = 404;
+      throw err;
+    }
+
+
   } catch (error) {
     next(error);
   }
 };
 
-const doesQuizExist = async (quizId:Mongoose["Types"]["ObjectId"])=>{
-  const quiz= await Quiz.findById(quizId);
-  if(!quiz)
+const doesQuizExist = async (quizId: Mongoose["Types"]["ObjectId"]) => {
+  const quiz = await Quiz.findById(quizId);
+  if (!quiz)
     return false;
   return true;
 }
 
-const isValidAttempt = async (attempted_question:{},quizId:Mongoose["Types"]["ObjectId"])=>{
-  const quiz= await Quiz.findById(quizId);
-  const answers=quiz!.answers;
-  const questions=Object.keys(answers);
-  const attemptQ=Object.keys(attempted_question);
-  if(attemptQ.length!=questions.length)
+const isValidAttempt = async (attempted_question: {}, quizId: Mongoose["Types"]["ObjectId"]) => {
+  const quiz = await Quiz.findById(quizId);
+  const answers = quiz!.answers;
+  const questions = Object.keys(answers);
+  const attemptQ = Object.keys(attempted_question);
+  if (attemptQ.length != questions.length)
     return false;
 
-  let flag=0;
-  attemptQ.forEach((e)=>{
-    if(questions.indexOf(e)<0){
-      flag=1;
+  let flag = 0;
+  attemptQ.forEach((e) => {
+    if (questions.indexOf(e) < 0) {
+      flag = 1;
     }
   });
-  if(flag){
+  if (flag) {
     return false;
   }
   return true;
 }
 
-export { startExam, submitExam, doesQuizExist, isValidAttempt};
+export { startExam, submitExam, doesQuizExist, isValidAttempt };
