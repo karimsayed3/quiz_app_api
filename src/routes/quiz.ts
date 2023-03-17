@@ -9,7 +9,8 @@ import {
   updateQuiz,
   deleteQuiz,
   publishQuiz,
-  isValidQuiz
+  isValidQuiz,
+  closeQuiz
 } from "../controllers/quiz";
 
 
@@ -69,6 +70,12 @@ router.put(
   updateQuiz
 );
 
+router.patch(
+  "/cancel",
+  isAuthenticated,
+  closeQuiz
+);
+
 //Delete
 //DELETE quiz/:quizId
 router.delete("/:quizId", isAuthenticated, deleteQuiz);
@@ -78,4 +85,3 @@ router.delete("/:quizId", isAuthenticated, deleteQuiz);
 router.patch("/publish", isAuthenticated, publishQuiz);
 
 export default router;
-

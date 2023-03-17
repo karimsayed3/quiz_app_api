@@ -101,6 +101,42 @@ const updateQuiz: RequestHandler = async (req, res, next) => {
   }
 };
 
+const closeQuiz:  RequestHandler = async (req, res, next) =>{
+  try {
+    const quizId = req.body.quizId;
+    const quiz = await Quiz.findById(quizId);
+
+    if (!quiz) {
+      const err = new ProjectError("Quiz not found!");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    if (req.userId !== quiz.created_by.toString()) {
+      const err = new ProjectError("You are not authorized!");
+      err.statusCode = 403;
+      throw err;
+    }
+
+    if (!quiz.is_published) {
+      const err = new ProjectError("Quiz is already not published!");
+      err.statusCode = 405;
+      throw err;
+    }
+
+    quiz.is_published = false;
+    await quiz.save();
+    const resp: ReturnResponse = {
+      status: "success",
+      message: "Quiz End successfully!",
+      data: {},
+    };
+    res.status(200).send(resp);
+  } catch (error) {
+    next(error);
+  }
+}
+
 const deleteQuiz: RequestHandler = async (req, res, next) => {
   try {
     const quizId = req.params.quizId;
@@ -210,5 +246,6 @@ export {
   updateQuiz,
   deleteQuiz,
   publishQuiz,
-  isValidQuiz
+  isValidQuiz,
+  closeQuiz
 };
