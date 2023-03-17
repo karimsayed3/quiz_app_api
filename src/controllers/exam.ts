@@ -15,6 +15,7 @@ const startExam: RequestHandler = async (req, res, next) => {
     const quiz = await Quiz.findById(quizId, {
       name: 1,
       questions_list: 1,
+      timer: 1,
       is_published: 1,
     });
 
@@ -112,6 +113,7 @@ const doesQuizExist = async (quizId: Mongoose["Types"]["ObjectId"]) => {
     return false;
   return true;
 }
+
 
 const isValidAttempt = async (attempted_question: {}, quizId: Mongoose["Types"]["ObjectId"]) => {
   const quiz = await Quiz.findById(quizId);

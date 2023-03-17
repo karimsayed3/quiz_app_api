@@ -12,8 +12,9 @@ const createQuiz: RequestHandler = async (req, res, next) => {
     const name = req.body.name;
     const questions_list = req.body.questions_list;
     const answers = req.body.answers;
+    const timer = req.body.timer;
 
-    const quiz = new Quiz({ name, questions_list, answers, created_by });
+    const quiz = new Quiz({ name, timer, questions_list, answers, created_by });
     const result = await quiz.save();
     const resp: ReturnResponse = {
       status: "success",
@@ -34,6 +35,7 @@ const getQuiz: RequestHandler = async (req, res, next) => {
       questions_list: 1,
       answers: 1,
       created_by: 1,
+      timer: 1,
     });
 
     if (!quiz) {
