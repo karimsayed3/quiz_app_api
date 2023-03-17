@@ -240,9 +240,6 @@ const isValidQuiz = async (
   return flag;
 };
 
-
-
-
 export {
   createQuiz,
   getQuiz,

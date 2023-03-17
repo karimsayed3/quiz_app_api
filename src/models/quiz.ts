@@ -7,6 +7,10 @@ const quizSchema = new schema(
       type: String,
       required: true,
     },
+    timer: {
+      type: Number,
+      required: true,
+    },
     questions_list: [
       {
         question_number: Number,
@@ -23,6 +27,7 @@ const quizSchema = new schema(
       type: Boolean,
       default: false,
     },
+    
   },
   { timestamps: true }
 );
@@ -30,3 +35,4 @@ const quizSchema = new schema(
 const Quiz = mongoose.model("Quiz", quizSchema);
 
 export default Quiz;
+  
