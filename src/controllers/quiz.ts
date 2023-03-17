@@ -89,6 +89,7 @@ const updateQuiz: RequestHandler = async (req, res, next) => {
     }
     quiz.questions_list = req.body.questions_list;
     quiz.answers = req.body.answers;
+    quiz.timer = req.body.timer;
 
     await quiz.save();
 
