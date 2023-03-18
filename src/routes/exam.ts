@@ -26,21 +26,6 @@ router.post("/", isAuthenticated,[
             return Promise.reject(err);
         })
     }),
-    body("attempted_question")
-    .not()
-    .isEmpty()
-    .custom((attempted_question,{req})=>{
-        return isValidAttempt(attempted_question,req.body.quizId)
-        .then((status:Boolean)=>{
-            if(!status){
-                return Promise.reject();
-            }
-        })
-        .catch((err)=>{
-            return Promise.reject(err);
-        })
-    })
-    .withMessage("Invalid attempt!")
 ],validateRequest , submitExam);
 
 export default router;
