@@ -39,4 +39,22 @@ const getReport: RequestHandler = async (req, res, next) => {
   }
 };
 
-export { getReport };
+const getStudentQuizScore : RequestHandler  = async (req,res ,next) =>{
+  try{
+    await Report.find({userId : req.userId}).then((dataa)=>{
+      const resp: ReturnResponse = {
+        status: "success",
+        message: "Get not published quizzes successfully",
+        data: dataa,
+      };
+      res.status(200).send(resp);
+    });
+
+
+  }catch(error){
+    next(error);
+  }
+
+}
+
+export { getReport ,getStudentQuizScore };
