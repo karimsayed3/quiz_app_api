@@ -104,6 +104,39 @@ const updateQuiz: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getPublishQuiz: RequestHandler = async (req, res, next) => {
+  try {
+
+   await Quiz.find({created_by : req.userId , is_published : true}).then((dataa)=>{
+      const resp: ReturnResponse = {
+        status: "success",
+        message: "Get Published Quizzes successfully",
+        data: dataa,
+      };
+      res.status(200).send(resp);
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+const getNotPublishQuiz: RequestHandler = async (req, res, next) => {
+  try {
+
+   await Quiz.find({created_by : req.userId , is_published : false}).then((dataa)=>{
+      const resp: ReturnResponse = {
+        status: "success",
+        message: "Get not published quizzes successfully",
+        data: dataa,
+      };
+      res.status(200).send(resp);
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
 const closeQuiz:  RequestHandler = async (req, res, next) =>{
   try {
     const quizId = req.body.quizId;
@@ -211,6 +244,10 @@ const publishQuiz: RequestHandler = async (req, res, next) => {
   }
 };
 
+
+
+
+
 const isValidQuiz = async (
   questions_list: [{ question_number: Number; question: String; options: {} }],
   answers: {}
@@ -241,6 +278,8 @@ const isValidQuiz = async (
   return flag;
 };
 
+
+
 export {
   createQuiz,
   getQuiz,
@@ -248,5 +287,7 @@ export {
   deleteQuiz,
   publishQuiz,
   isValidQuiz,
-  closeQuiz
+  closeQuiz,
+  getPublishQuiz,
+  getNotPublishQuiz
 };

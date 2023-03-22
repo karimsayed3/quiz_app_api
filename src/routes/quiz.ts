@@ -10,7 +10,9 @@ import {
   deleteQuiz,
   publishQuiz,
   isValidQuiz,
-  closeQuiz
+  closeQuiz,
+  getPublishQuiz,
+  getNotPublishQuiz
 } from "../controllers/quiz";
 
 
@@ -43,6 +45,11 @@ router.post(
 // get
 // GET /quiz/:quizId
 router.get("/:quizId", isAuthenticated, getQuiz);
+
+router.get("/quiz/getPublishQuiz", isAuthenticated, getPublishQuiz);
+
+
+router.get("/quiz/getNotPublishQuiz", isAuthenticated, getNotPublishQuiz);
 
 //
 
